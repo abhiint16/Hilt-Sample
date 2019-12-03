@@ -16,41 +16,20 @@ class HomeActivity : BaseActivity<ActivityHomeBinding, HomeActivityViewModel>() 
     @Inject
     lateinit var factory: ViewModelProvider.Factory
 
-    var str: String = String()
-
-    var str2: String? = null
-
     override fun setViewModel(): ViewModel {
-        return ViewModelProviders.of(this).get(HomeActivityViewModel::class.java)
+        return ViewModelProviders.of(this, factory).get(HomeActivityViewModel::class.java)
     }
 
     override val layout: Int
         get() = R.layout.activity_home
 
     override fun initObserver() {
-        //do nothing
-        viewModel.observeLivedataBefore().observe(this, Observer {
-            Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
-        })
-
-        viewModel.observeLivedataMeanwhile().observe(this, Observer {
-            Toast.makeText(this, "${it.username} & ${it.password}", Toast.LENGTH_SHORT).show()
-        })
-
-        viewModel.observeLivedataAfter().observe(this, Observer {
-            Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+        viewModel.observeForLiveData().observe(this, Observer { boolean ->
+            Toast.makeText(this, "Live Data Observed", Toast.LENGTH_LONG).show()
         })
     }
 
     override fun setUp() {
-        viewModel.sample()
-    }
-
-    infix fun show(a: Int): Int {
-        return 1
-    }
-
-    fun returnStr(): String {
-        return "abhi"
+        viewModel.testFun()
     }
 }
