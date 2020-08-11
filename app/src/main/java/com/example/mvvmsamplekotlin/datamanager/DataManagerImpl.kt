@@ -4,16 +4,13 @@ import com.example.mvvmsamplekotlin.datamanager.apihelper.ApiHelper
 import com.example.mvvmsamplekotlin.datamanager.dbhelper.DBHelper
 import com.example.mvvmsamplekotlin.datamanager.prefhelper.PreferenceHelper
 import javax.inject.Inject
+import javax.inject.Singleton
 
-class DataManagerImpl : DataManager {
-    var apiHelper: ApiHelper
-    var dbHelper: DBHelper
+@Singleton
+class DataManagerImpl @Inject constructor(
+    var apiHelper: ApiHelper,
+    var dbHelper: DBHelper,
     var preferenceHelper: PreferenceHelper
+) : DataManager {
 
-    @Inject
-    constructor(apiHelper: ApiHelper, dbHelper: DBHelper, preferenceHelper: PreferenceHelper) {
-        this.apiHelper = apiHelper
-        this.dbHelper = dbHelper
-        this.preferenceHelper = preferenceHelper
-    }
 }

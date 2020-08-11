@@ -1,57 +1,32 @@
 package com.example.mvvmsamplekotlin.di.modules
 
-import com.example.mvvmsamplekotlin.AppConstants
 import com.example.mvvmsamplekotlin.datamanager.DataManager
 import com.example.mvvmsamplekotlin.datamanager.DataManagerImpl
 import com.example.mvvmsamplekotlin.datamanager.apihelper.ApiHelper
 import com.example.mvvmsamplekotlin.datamanager.apihelper.ApiHelperImpl
-import com.example.mvvmsamplekotlin.datamanager.apihelper.ApiService
 import com.example.mvvmsamplekotlin.datamanager.dbhelper.DBHelper
 import com.example.mvvmsamplekotlin.datamanager.dbhelper.DBHelperImpl
 import com.example.mvvmsamplekotlin.datamanager.prefhelper.PreferenceHelper
 import com.example.mvvmsamplekotlin.datamanager.prefhelper.PreferenceHelperImpl
-import com.example.mvvmsamplekotlin.di.qualifier.PreferenceName
+import dagger.Binds
 import dagger.Module
-import dagger.Provides
-import retrofit2.Retrofit
-import javax.inject.Singleton
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ApplicationComponent
 
+@InstallIn(ApplicationComponent::class)
 @Module
-class AppModule {
+abstract class AppModule {
 
-    @Provides
-    fun providesDataManager(dataManagerImpl: DataManagerImpl):
-            DataManager {
-        return dataManagerImpl
-    }
+    @Binds
+    abstract fun providesDataManager(dataManagerImpl: DataManagerImpl): DataManager
 
-    @Provides
-    @Singleton
-    fun providesApiHelper(apiHelper: ApiHelperImpl):
-            ApiHelper {
-        return apiHelper
-    }
+    @Binds
+    abstract fun providesApiHelper(apiHelper: ApiHelperImpl): ApiHelper
 
-    @Provides
-    fun providesDBHelper(dbHelper: DBHelperImpl):
-            DBHelper {
-        return dbHelper
-    }
+    @Binds
+    abstract fun providesDBHelper(dbHelper: DBHelperImpl): DBHelper
 
-    @Provides
-    fun providesPrefHelper(preferenceHelper: PreferenceHelperImpl):
-            PreferenceHelper {
-        return preferenceHelper
-    }
+    @Binds
+    abstract fun providesPrefHelper(preferenceHelper: PreferenceHelperImpl): PreferenceHelper
 
-    @Provides
-    fun providesApiService(retrofit: Retrofit): ApiService {
-        return retrofit.create(ApiService::class.java)
-    }
-
-    @Provides
-    @PreferenceName
-    fun providesSharedPrefName(): String {
-        return AppConstants.SHARED_PREFERENCE_NAME;
-    }
 }

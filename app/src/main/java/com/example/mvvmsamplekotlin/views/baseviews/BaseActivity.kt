@@ -9,7 +9,6 @@ import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import com.example.mvvmsamplekotlin.views.viewutil.LoadingDialog
-import dagger.android.AndroidInjection
 
 abstract class BaseActivity<Binding : ViewDataBinding, VM : BaseViewModel> : AppCompatActivity() {
 
@@ -17,7 +16,7 @@ abstract class BaseActivity<Binding : ViewDataBinding, VM : BaseViewModel> : App
 
     lateinit var binding: Binding
 
-    abstract fun setViewModel(): ViewModel
+    abstract val setViewModel: ViewModel
 
     lateinit var dialog: LoadingDialog
 
@@ -30,9 +29,8 @@ abstract class BaseActivity<Binding : ViewDataBinding, VM : BaseViewModel> : App
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setDependencyInjection()
         setBinding()
-        viewModel = setViewModel() as VM
+        viewModel = setViewModel as VM
         baseViewModelObserver()
         initObserver()
         setUp()
@@ -40,10 +38,6 @@ abstract class BaseActivity<Binding : ViewDataBinding, VM : BaseViewModel> : App
 
     private fun setBinding() {
         binding = DataBindingUtil.setContentView(this@BaseActivity, layout)
-    }
-
-    private fun setDependencyInjection() {
-        AndroidInjection.inject(this)
     }
 
     private fun baseViewModelObserver() {

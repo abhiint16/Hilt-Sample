@@ -1,12 +1,9 @@
 package com.example.mvvmsamplekotlin.datamanager.apihelper
 
 import javax.inject.Inject
+import javax.inject.Singleton
 
-class ApiHelperImpl : ApiHelper {
-    var apiService: ApiService
+@Singleton
+class ApiHelperImpl @Inject constructor(var apiService: ApiService) : ApiHelper {
 
-    @Inject
-    constructor(apiService: ApiService) {
-        this.apiService = apiService
-    }
 }

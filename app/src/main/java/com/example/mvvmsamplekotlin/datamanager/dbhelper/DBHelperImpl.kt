@@ -1,9 +1,9 @@
 package com.example.mvvmsamplekotlin.datamanager.dbhelper
 
 import javax.inject.Inject
+import javax.inject.Singleton
 
-class DBHelperImpl : DBHelper {
+@Singleton
+class DBHelperImpl @Inject constructor() : DBHelper {
 
-    @Inject
-    constructor()
 }
